@@ -30,7 +30,7 @@ local required(name) = error("Undefined required argument in app(): Please provi
                 "containers": [
                     {
                         "name": name,
-                        "image": image + ":" + std.rstripChars(tag, '\n'),
+                        "image": image + "@" + std.rstripChars(tag, '\n'),
                     }
                 ]
             }
