@@ -48,7 +48,7 @@ spec:
       destination:
         namespace: "{{ index .path.segments 2 }}"
         server: "{{ index .path.segments 1 }}"
-      project: exampleteam
+      project: default
       source:
         path: "{{.path.path}}"
         repoURL: "https://github.com/eliihen/gitops-fun.git"
