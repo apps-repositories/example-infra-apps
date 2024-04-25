@@ -47,7 +47,7 @@ spec:
     spec:
       destination:
         namespace: "{{ index .path.segments 2 }}"
-        server: "{{ index .path.segments 1 }}"
+        name: "{{ index .path.segments 1 }}"
       project: default
       source:
         path: "{{.path.path}}"
