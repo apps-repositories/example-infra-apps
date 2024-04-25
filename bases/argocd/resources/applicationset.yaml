@@ -17,14 +17,14 @@ spec:
                     elements:
                       - allowEmpty: false
                         autoSync: true
-                        key: "{{ .path.basenameNormalized}}"
+                        key: "{{ .path.basenameNormalized }}"
                         prune: true
                         selfHeal: true
                         tool: directory
           - matrix:
               generators:
                 - git:
-                    directories:
+                    files:
                       - path: env/*/*/config.json
                     repoURL: "https://github.com/eliihen/gitops-fun.git"
                     revision: HEAD
@@ -32,7 +32,7 @@ spec:
                     elements:
                       - allowEmpty: false
                         autoSync: true
-                        key: "{{ .path.basenameNormalized}}"
+                        key: "{{ .path.basenameNormalized }}"
                         prune: true
                         selfHeal: true
                         tool: directory
