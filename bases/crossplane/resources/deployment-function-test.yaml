@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: crossplane-function-test
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: crossplane-function-test
+  template:
+    metadata:
+      labels:
+        app: crossplane-function-test
+    spec:
+      containers:
+        - name: crossplane-function-test
+          image: ghcr.io/eliihen/crossplane-function-test:v0.0.0-20240429183040-913601b0469d
+          args:
+            - --insecure

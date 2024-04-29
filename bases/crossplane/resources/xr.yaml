@@ -1,0 +1,9 @@
+apiVersion: example.crossplane.io/v1
+kind: XDeploy
+metadata:
+  name: example-xr
+  annotations:
+    argocd.argoproj.io/sync-wave: "6"
+spec: 
+  image: "nginx"
+  tag: "latest"

@@ -1,0 +1,11 @@
+resources:
+  - resources/function.yaml
+  - resources/composition.yaml
+  - resources/xr.yaml
+
+helmCharts:
+  - name: crossplane
+    repo: https://charts.crossplane.io/stable
+    includeCRDs: true
+    namespace: crossplane
+    version: 1.15.2
