@@ -4,6 +4,7 @@ kind: Kustomization
 resources:
   - resources/function.yaml
   - resources/composition.yaml
+  - resources/xrd.yaml
   - resources/xr.yaml
 
 helmCharts:

@@ -1,0 +1,29 @@
+apiVersion: apiextensions.crossplane.io/v1
+kind: CompositeResourceDefinition
+metadata: 
+  name: xmydatabases.example.org
+  annotations:
+    argocd.argoproj.io/sync-wave: "4"
+spec:
+  group: example.crossplane.io
+  names:
+    kind: XDeploy
+    plural: xdeploys
+  versions:
+  - name: v1
+    served: true
+    referenceable: true
+    schema:
+      openAPIV3Schema:
+        type: object
+        properties:
+          spec:
+            type: object
+            properties:
+              image:
+                type: string
+              tag:
+                type: string
+            required: 
+              - image 
+              - tag
