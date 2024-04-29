@@ -1,7 +1,7 @@
 apiVersion: apiextensions.crossplane.io/v1
 kind: CompositeResourceDefinition
 metadata: 
-  name: xmydatabases.example.org
+  name: xdeploy.example.crossplane.io
   annotations:
     argocd.argoproj.io/sync-wave: "4"
 spec:
