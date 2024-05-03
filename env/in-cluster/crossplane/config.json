@@ -1,3 +1,4 @@
 {
-  "tool": "kustomize"
+  "tool": "kustomize",
+  "autoSync": false
 }
