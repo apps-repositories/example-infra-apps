@@ -8,7 +8,7 @@ spec:
     - git:
         directories:
           - path: env/*/*
-        repoURL: 'https://github.com/eliihen/gitops-fun.git'
+        repoURL: 'https://github.com/eliihen/argocd-apps-repo-talk.git'
         revision: HEAD
   goTemplate: true
   goTemplateOptions:
@@ -23,7 +23,7 @@ spec:
       project: default
       source:
         path: '{{.path.path}}'
-        repoURL: 'https://github.com/eliihen/gitops-fun.git'
+        repoURL: 'https://github.com/eliihen/argocd-apps-repo-talk.git'
         targetRevision: HEAD
       syncPolicy:
         syncOptions:
