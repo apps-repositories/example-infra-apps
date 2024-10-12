@@ -1,0 +1,34 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: exampleteam-apps
+  namespace: argocd
+spec:
+  generators:
+    - git:
+        directories:
+          - path: env/*/*
+        repoURL: 'https://github.com/eliihen/gitops-fun.git'
+        revision: HEAD
+  goTemplate: true
+  goTemplateOptions:
+    - missingkey=error
+  template:
+    metadata:
+      name: '{{.path.basename}}'
+    spec:
+      destination:
+        namespace: '{{ index .path.segments 2 }}'
+        name: '{{ index .path.segments 1 }}'
+      project: default
+      source:
+        path: '{{.path.path}}'
+        repoURL: 'https://github.com/eliihen/gitops-fun.git'
+        targetRevision: HEAD
+      syncPolicy:
+        syncOptions:
+          - CreateNamespace=true
+        automated:
+          prune: false
+          allowEmpty: true
+          selfHeal: true
