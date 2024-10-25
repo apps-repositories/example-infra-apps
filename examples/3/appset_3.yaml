@@ -1,0 +1,82 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: example-team-apps
+  namespace: argocd
+spec:
+  syncPolicy:
+    preserveResourcesOnDeletion: true
+  generators:
+  - merge:
+      generators:
+      - matrix:
+          generators:
+          - git:
+              directories:
+                - path: env/*/*
+              repoURL: 'https://github.com/eliihen/example-team-apps.git'
+              revision: HEAD
+          - list:
+              elements:
+              - allowEmpty: false
+                autoSync: true
+                key: '{{ .path.basenameNormalized }}'
+                prune: true
+                selfHeal: true
+                tool: directory
+      - matrix:
+          generators:
+          - git:
+              files:
+              - path: env/*/*/config.json
+              repoURL: https://github.com/eliihen/example-team-apps.git
+              revision: HEAD
+          - list:
+              elements:
+              - allowEmpty: false
+                autoSync: true
+                key: '{{ .path.basenameNormalized }}'
+                prune: true
+                selfHeal: true
+                tool: directory
+      mergeKeys:
+      - key
+  goTemplate: true
+  goTemplateOptions:
+  - missingkey=error
+  template:
+    metadata:
+      name: '{{ .path.basenameNormalized }}-{{ index .path.segments 1 }}'
+    spec:
+      destination:
+        namespace: '{{ index .path.segments 2 }}'
+        name: '{{ index .path.segments 1 }}'
+      project: example-team
+      source:
+        path: '{{.path.path}}'
+        repoURL: 'https://github.com/eliihen/example-team-apps.git'
+        targetRevision: HEAD
+      syncPolicy:
+        managedNamespaceMetadata:
+          labels:
+            app.kubernetes.io/managed-by: argocd
+            pod-security.kubernetes.io/audit: restricted
+            team: exampleteam
+        syncOptions:
+        - CreateNamespace=true
+        - ServerSideApply=true
+        - PrunePropagationPolicy=background
+  templatePatch: |
+    spec:
+      source:
+        directory:
+      {{- if eq .tool "directory" }}
+          exclude: config.json
+      {{- end }}
+    {{- if .autoSync }}
+      syncPolicy:
+        automated:
+          allowEmpty: {{ .allowEmpty | toJson }}
+          prune: {{ .prune | toJson }}
+          selfHeal: {{ .selfHeal | toJson }}
+    {{- end }}

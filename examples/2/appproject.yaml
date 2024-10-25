@@ -1,0 +1,25 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: example-team
+  namespace: argocd
+spec:
+  description: Example team AppProject
+  destinations:
+  - namespace: 'example-*'
+    name: in-cluster
+  sourceRepos:
+  - '*'
+  clusterResourceWhitelist:
+  - group: '*'
+    kind: '*'
+  namespaceResourceBlacklist:
+  - group: '*'
+    kind: 'Event'
+  roles:
+  - name: developers
+    description: developers role with full access
+    policies:
+    - p, proj:example-team:developers, applications, *, example-team/*, allow
+    groups:
+    - example-admins

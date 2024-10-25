@@ -1,0 +1,36 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: example-infra-apps
+  namespace: argocd
+spec:
+  syncPolicy:
+    preserveResourcesOnDeletion: true
+  generators:
+    - git:
+        directories:
+          - path: env/*/*
+        repoURL: 'https://github.com/eliihen/example-infra-apps.git'
+        revision: HEAD
+  goTemplate: true
+  goTemplateOptions:
+    - missingkey=error
+  template:
+    metadata:
+      name: '{{ .path.basename }}-{{ index .path.segments 1 }}'
+    spec:
+      destination:
+        namespace: '{{ index .path.segments 2 }}'
+        name: '{{ index .path.segments 1 }}'
+      project: default
+      source:
+        path: '{{.path.path}}'
+        repoURL: 'https://github.com/eliihen/example-infra-apps.git'
+        targetRevision: HEAD
+      syncPolicy:
+        syncOptions:
+          - CreateNamespace=true
+        automated:
+          prune: false
+          allowEmpty: true
+          selfHeal: true
