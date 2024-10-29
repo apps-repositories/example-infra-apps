@@ -14,7 +14,7 @@ spec:
           - git:
               directories:
                 - path: env/*/*
-              repoURL: 'https://github.com/eliihen/example-team-apps.git'
+              repoURL: 'https://github.com/apps-repositories/example-team-apps.git'
               revision: HEAD
           - list:
               elements:
@@ -29,7 +29,7 @@ spec:
           - git:
               files:
               - path: env/*/*/config.json
-              repoURL: https://github.com/eliihen/example-team-apps.git
+              repoURL: https://github.com/apps-repositories/example-team-apps.git
               revision: HEAD
           - list:
               elements:
@@ -54,7 +54,7 @@ spec:
       project: example-team
       source:
         path: '{{.path.path}}'
-        repoURL: 'https://github.com/eliihen/example-team-apps.git'
+        repoURL: 'https://github.com/apps-repositories/example-team-apps.git'
         targetRevision: HEAD
       syncPolicy:
         managedNamespaceMetadata:

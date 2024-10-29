@@ -10,7 +10,7 @@ spec:
     - git:
         directories:
           - path: env/*/*
-        repoURL: 'https://github.com/eliihen/example-infra-apps.git'
+        repoURL: 'https://github.com/apps-repositories/example-infra-apps.git'
         revision: HEAD
   goTemplate: true
   goTemplateOptions:
@@ -25,7 +25,7 @@ spec:
       project: default
       source:
         path: '{{.path.path}}'
-        repoURL: 'https://github.com/eliihen/example-infra-apps.git'
+        repoURL: 'https://github.com/apps-repositories/example-infra-apps.git'
         targetRevision: HEAD
       syncPolicy:
         syncOptions:
